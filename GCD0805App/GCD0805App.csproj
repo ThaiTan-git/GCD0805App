@@ -194,6 +194,7 @@
     <Compile Include="Models\Trainee.cs" />
     <Compile Include="Models\TraineeCourse.cs" />
     <Compile Include="Models\Trainer.cs" />
+    <Compile Include="Models\TrainerCourse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Units\Role.cs" />
