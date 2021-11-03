@@ -1,0 +1,95 @@
+﻿@model GCD0805App.ViewModels.UserRolesViewModel
+@using GCD0805App.Units;
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Update Profile</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Users.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Users.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col">
+                @Html.TextBoxFor(model => model.Users.UserName, new { @class = "form-control", @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.Users.UserName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Users.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col">
+                @Html.TextBoxFor(model => model.Users.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Users.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Users.Age, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col">
+                @Html.TextBoxFor(model => model.Users.Age, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Users.Age, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Users.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col">
+                @Html.TextBoxFor(model => model.Users.DateOfBirth, new { @class = "form-control", type = "date" })
+                @Html.ValidationMessageFor(model => model.Users.DateOfBirth, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @if (!User.IsInRole(Role.Staff))
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Users.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col">
+                    @Html.TextBoxFor(model => model.Users.Address, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Users.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Users.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col">
+                @Html.TextBoxFor(model => model.Users.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Users.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @Html.HiddenFor(m => m.Roles)          
+
+        @if (Model.Roles.Any(r => r == Role.Trainer))
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Users.Specialty, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col">
+                    @Html.TextBoxFor(model => model.Users.Specialty, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Users.Specialty, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+
+        @if (Model.Roles.Any(r => r == Role.Trainee))
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Users.Education, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col">
+                    @Html.TextBoxFor(model => model.Users.Education, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Users.Education, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+
+        <div class="form-group">
+            <div class="col">
+                <input type="submit" value="Save changes" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,62 @@
+﻿@model GCD0805App.ViewModels.GroupsViewModel
+@using GCD0805App.Units
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>View Index Staff</h2>
+
+<p>
+    @Html.ActionLink("Create a new Account", "Create", null, new { @class = "btn btn-primary" })
+</p>
+
+<div class="form-group">
+    @using (Html.BeginForm("Index", "Staff", FormMethod.Get))
+    {
+        <div class="form-group">
+            @Html.TextBox("Search", null, new { @class = "form-control" })
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    }
+</div>
+
+<div>
+    @using (Html.BeginForm("ListUser", "Course", FormMethod.Get))
+    {
+        <div class="form-group">
+            @Html.TextBox("Course", null, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.RadioButton("role", Role.Trainee)
+            <div>Trainee</div>
+            @Html.RadioButton("role", Role.Trainer)
+            <div>Trainer</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    }
+</div>
+
+<h3>Trainee Account</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">User Name</th>
+            <th scope="col">name</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var trainee in Model.Trainees)
+        {
+            <tr>
+                <td>@trainee.UserName</td>
+                <td>@trainee.Name</td>
+                <td>
+                    @Html.ActionLink("Update", "Update", "Staff", new { id = trainee.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Delete", "Delete", "Staff", new { id = trainee.Id }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("ResetPassword", "ResetPassword", "Staff", new { email = trainee.Email }, new { @class = "btn btn-info" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

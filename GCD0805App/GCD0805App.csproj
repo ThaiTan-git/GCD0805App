@@ -268,6 +268,12 @@
     <Content Include="Views\Course\GetTrainees.cshtml" />
     <Content Include="Views\Course\MyCourse.cshtml" />
     <Content Include="Views\Course\UserList.cshtml" />
+    <Content Include="Views\Trainer\Index.cshtml" />
+    <Content Include="Views\Trainer\Edit.cshtml" />
+    <Content Include="Views\Shared\Info.cshtml" />
+    <Content Include="Views\Staff\Index.cshtml" />
+    <Content Include="Views\Staff\Create.cshtml" />
+    <Content Include="Views\Staff\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

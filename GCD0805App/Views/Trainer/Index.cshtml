@@ -3,17 +3,16 @@
     ViewBag.Title = "Index";
 }
 
-<h2>My Information</h2>
+<h2>@Model.Name Profile</h2>
 
-<div class="form-group">
-    @Html.ActionLink("Courses", "Courses", "Course", null, new { @class = "btn btn-info" })
-</div>
+@Html.ActionLink("Edit", "Edit", "Trainers", null, new { @class = "btn btn-success" })
 
 <div class="panel panel-info">
     <div class="panel-body">
         <p>Name: @Model.Name</p>
         <p>Age: @Model.Age</p>
         <p>Date of Birth: @Model.DateOfBirth</p>
-        <p>Education: @Model.Education</p>
+        <p>Address: @Model.Address</p>
+        <p>Specialty: @Model.Specialty</p>
     </div>
 </div>

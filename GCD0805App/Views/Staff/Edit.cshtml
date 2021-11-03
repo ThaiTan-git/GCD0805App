@@ -1,0 +1,11 @@
+﻿@model GCD0805App.ViewModels.UserRolesViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+@Html.Partial("Info")
+@Html.ActionLink("Back", "Index", null, new { @class = "btn btn-primary" })

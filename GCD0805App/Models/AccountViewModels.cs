@@ -72,7 +72,7 @@ namespace GCD0805App.Models
 
         [Required]
         [Display(Name = "Name")]
-        public string FullName { get; set; }
+        public string Name { get; set; }
 
         [Required]
         public int Age { get; set; }
