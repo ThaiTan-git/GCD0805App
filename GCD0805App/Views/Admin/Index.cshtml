@@ -1,0 +1,65 @@
+﻿@model GCD0805App.ViewModels.GroupsViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>View Index Admin</h2>
+
+<p>
+    @Html.ActionLink("Create a new Account", "Create", null, new { @class = "btn btn-primary" })
+</p>
+
+
+<h3>Staff Account</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">No.</th>
+            <th scope="col">User Name</th>
+            <th scope="col">name</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var staff in Model.Staffs)
+        {
+            <tr>
+                <th scope="row">@staff.Id</th>
+                <td>@staff.UserName</td>
+                <td>@staff.Name</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Admin", new { id = staff.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Delete", "Delete", "Admin", new { id = staff.Id }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("ResetPassword", "ResetPassword", "Admin", new { email = staff.Email }, new { @class = "btn btn-info" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Trainer Account</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">No.</th>
+            <th scope="col">UserName</th>
+            <th scope="col">Name</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var trainer in Model.Trainers)
+        {
+            <tr>
+                <th scope="row">@trainer</th>
+                <td>@trainer.UserName</td>
+                <td>@trainer.Name</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Admin", new { id = trainer.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Delete", "Delete", "Admin", new { id = trainer.Id }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("ResetPassword", "ResetPassword", "Admin", new { email = trainer.Email }, new { @class = "btn btn-info" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<GCD0805App.Models.Category>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Category</h2>
+<div class="form-group">
+    @Html.ActionLink("Create a new Category", "Create", "Categories", new { @class = "btn btn-primary" })
+</div>
+
+<div class="form-group">
+    @using (Html.BeginForm("Index", "Category", FormMethod.Get))
+    {
+        <div class="form-group">
+            @Html.TextBox("searchString", null, new { @class = "form-control" })
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    }
+</div>
+
+
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Category Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.Id</th>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Categories", new { id = item.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Delete", "Delete", "Categories", new { id = item.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
