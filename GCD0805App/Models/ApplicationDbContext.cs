@@ -3,7 +3,7 @@ using System.Data.Entity;
 
 namespace GCD0805App.Models
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<IdentityModel>
     {
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

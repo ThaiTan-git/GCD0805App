@@ -15,12 +15,12 @@ namespace GCD0805App.Controllers
         public class CourseController : Controller
         {
             private ApplicationDbContext _context;
-            private UserManager<ApplicationUser> _userManager;
+            private UserManager<IdentityModel> _userManager;
             public CourseController()
             {
                 _context = new ApplicationDbContext();
-                _userManager = new UserManager<ApplicationUser>
-                    (new UserStore<ApplicationUser>
+                _userManager = new UserManager<IdentityModel>
+                    (new UserStore<IdentityModel>
                     (new ApplicationDbContext()));
             }
 
@@ -127,7 +127,7 @@ namespace GCD0805App.Controllers
                 var members = _context.TrainingCourses
                     .Where(t => t.CourseId == id)
                     .Select(t => t.User);
-                var trainer = new List<ApplicationUser>();
+                var trainer = new List<IdentityModel>();
 
                 foreach (var user in members)
                 {
@@ -157,7 +157,7 @@ namespace GCD0805App.Controllers
                     .Select(t => t.User)
                     .ToList();
 
-                var usersToAdd = new List<ApplicationUser>();
+                var usersToAdd = new List<IdentityModel>();
 
                 foreach (var user in usersInDb)
                 {
@@ -216,7 +216,7 @@ namespace GCD0805App.Controllers
                     //.Include(t => t.User)
                     .Where(t => t.CourseId == id)
                     .Select(t => t.User);
-                var trainee = new List<ApplicationUser>();       // Init List Users to Add Course
+                var trainee = new List<IdentityModel>();       // Init List Users to Add Course
 
                 foreach (var user in members)
                 {
@@ -247,7 +247,7 @@ namespace GCD0805App.Controllers
                     .Select(t => t.User)
                     .ToList();
 
-                var usersToAdd = new List<ApplicationUser>();
+                var usersToAdd = new List<IdentityModel>();
 
                 foreach (var user in usersInDb)
                 {

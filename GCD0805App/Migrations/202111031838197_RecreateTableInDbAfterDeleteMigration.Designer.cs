@@ -13,7 +13,7 @@ namespace GCD0805App.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202111031829311_RecreateTableInDbAfterDeleteMigration"; }
+            get { return "202111031838197_RecreateTableInDbAfterDeleteMigration"; }
         }
         
         string IMigrationMetadata.Source

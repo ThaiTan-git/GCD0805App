@@ -5,8 +5,8 @@ namespace GCD0805App.ViewModels
 {
     public class GroupsViewModel
     {
-        public List<ApplicationUser> Staffs { get; set; }
-        public List<ApplicationUser> Trainers { get; set; }
-        public List<ApplicationUser> Trainees { get; set; }
+        public List<IdentityModel> Staffs { get; set; }
+        public List<IdentityModel> Trainers { get; set; }
+        public List<IdentityModel> Trainees { get; set; }
     }
 }

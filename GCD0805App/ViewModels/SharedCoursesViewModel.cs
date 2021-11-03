@@ -7,6 +7,6 @@ namespace GCD0805App.ViewModels
     {
         public int CourseId { get; set; }
         public string UserId { get; set; }
-        public IEnumerable<ApplicationUser> Users { get; set; }
+        public IEnumerable<IdentityModel> Users { get; set; }
     }
 }

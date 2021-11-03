@@ -47,12 +47,12 @@ namespace GCD0805App.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(ApplicationUser model)
+        public ActionResult Create(IdentityModel model)
         {
 
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser
+                var user = new IdentityModel
                 {
                     UserName = model.Name,
                     Email = model.Email,

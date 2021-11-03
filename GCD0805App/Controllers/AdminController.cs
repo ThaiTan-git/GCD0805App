@@ -78,7 +78,7 @@ namespace GCD0805App.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser
+                var user = new IdentityModel
                 {
                     UserName = model.Email,
                     Email = model.Email,
