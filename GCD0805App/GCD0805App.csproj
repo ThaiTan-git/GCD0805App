@@ -200,6 +200,7 @@
     <Compile Include="Units\Role.cs" />
     <Compile Include="ViewModels\CoursesViewModel.cs" />
     <Compile Include="ViewModels\GroupsViewModel.cs" />
+    <Compile Include="ViewModels\SharedCoursesViewModel.cs" />
     <Compile Include="ViewModels\UserRolesViewModel.cs" />
     <Compile Include="ViewModels\UsersCourseViewModel.cs" />
   </ItemGroup>

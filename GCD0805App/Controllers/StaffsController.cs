@@ -64,7 +64,6 @@ namespace GCD0805App.Controllers
                 return RedirectToAction("Index");
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
@@ -86,7 +85,7 @@ namespace GCD0805App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Update(UserRolesViewModel model)
+        public ActionResult Edit(UserRolesViewModel model)
         {
             if (ModelState.IsValid)
             {
