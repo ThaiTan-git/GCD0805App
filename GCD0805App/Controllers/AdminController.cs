@@ -66,7 +66,7 @@ namespace GCD0805App.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            var model = new RegisterViewModel
+            var model = new AccountViewModel
             {
                 Roles = new List<string>() { Role.Trainer, Role.Staff }
             };
@@ -74,7 +74,7 @@ namespace GCD0805App.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(RegisterViewModel model)
+        public ActionResult Create(AccountViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -106,7 +106,7 @@ namespace GCD0805App.Controllers
             var model = new UserRolesViewModel()
             {
                 Users = user,
-                Roles = new List<string>(_userManager.GetRoles(User.Identity.GetUserId()))
+                Roles = new List<string>(_userManager.GetRoles(user.Id))
             };
             return View(model);
         }

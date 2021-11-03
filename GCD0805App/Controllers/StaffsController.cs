@@ -47,7 +47,7 @@ namespace GCD0805App.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(RegisterViewModel model)
+        public ActionResult Create(ApplicationUser model)
         {
 
             if (ModelState.IsValid)

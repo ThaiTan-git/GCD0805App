@@ -66,19 +66,22 @@ namespace GCD0805App.Models
     public class RegisterViewModel
     {
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [Display(Name = "Name")]
-        public string Name { get; set; }
-        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
         [Required]
-        [Display(Name = "Age")]
+        [Display(Name = "Name")]
+        public string FullName { get; set; }
+
+        [Required]
         public int Age { get; set; }
+
         [Required]
         [Display(Name = "Date Of Birth")]
         public DateTime DateOfBirth { get; set; }
+
+
         [Display(Name = "Education")]
         public string Education { get; set; }
 
@@ -92,13 +95,7 @@ namespace GCD0805App.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-        [Required]
-        public string Role { get; set; }
-        public List<string> Roles { get; set; }
-        [Required]
-        [StringLength(100)]
-        [Display(Name = "Address")]
-        public string Address { get; set; }
+        public List<string> Roles { get; internal set; }
     }
 
     public class ResetPasswordViewModel

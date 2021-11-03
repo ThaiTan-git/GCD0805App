@@ -1,7 +1,7 @@
 ﻿using GCD0805App.Models;
 using GCD0805App.Units;
+using GCD0805App.ViewModels;
 using Microsoft.AspNet.Identity;
-using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -10,7 +10,7 @@ namespace GCD0805App.Controllers
     [Authorize(Roles = Role.Trainee)]
     public class TraineesController : Controller
     {
-       
+
         private ApplicationDbContext _context;
         public TraineesController()
         {

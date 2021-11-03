@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using GCD0805App.Models;
+using GCD0805.Controllers;
 
 namespace GCD0805App.Controllers
 {

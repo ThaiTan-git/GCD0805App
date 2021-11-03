@@ -3,7 +3,7 @@ namespace GCD0805App.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class CreateCoursesDbTable : DbMigration
+    public partial class RecreateTableInDbAfterDeleteMigration : DbMigration
     {
         public override void Up()
         {
@@ -54,10 +54,29 @@ namespace GCD0805App.Migrations
                 .Index(t => t.RoleId);
             
             CreateTable(
+                "dbo.TrainingCourses",
+                c => new
+                    {
+                        UserId = c.String(nullable: false, maxLength: 128),
+                        CourseId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.UserId, t.CourseId })
+                .ForeignKey("dbo.Courses", t => t.CourseId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .Index(t => t.UserId)
+                .Index(t => t.CourseId);
+            
+            CreateTable(
                 "dbo.AspNetUsers",
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
+                        Name = c.String(maxLength: 225),
+                        Age = c.Int(nullable: false),
+                        DateOfBirth = c.DateTime(nullable: false),
+                        Address = c.String(maxLength: 255),
+                        Education = c.String(maxLength: 255),
+                        Specialty = c.String(maxLength: 255),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -102,14 +121,18 @@ namespace GCD0805App.Migrations
         
         public override void Down()
         {
+            DropForeignKey("dbo.TrainingCourses", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.TrainingCourses", "CourseId", "dbo.Courses");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.Courses", "CategoryId", "dbo.Categories");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropIndex("dbo.TrainingCourses", new[] { "CourseId" });
+            DropIndex("dbo.TrainingCourses", new[] { "UserId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
@@ -117,6 +140,7 @@ namespace GCD0805App.Migrations
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
+            DropTable("dbo.TrainingCourses");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.Courses");

@@ -7,13 +7,13 @@ namespace GCD0805App.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class CreateCoursesDbTable : IMigrationMetadata
+    public sealed partial class RecreateTableInDbAfterDeleteMigration : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateCoursesDbTable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(RecreateTableInDbAfterDeleteMigration));
         
         string IMigrationMetadata.Id
         {
-            get { return "202111021450110_CreateCoursesDbTable"; }
+            get { return "202111031829311_RecreateTableInDbAfterDeleteMigration"; }
         }
         
         string IMigrationMetadata.Source

@@ -18,23 +18,23 @@ namespace GCD0805App.Models
             return userIdentity;
         }
 
-        [Key]
-        public int Id { get; set; }
-        [Required]
-        public string Email { get; set; }
-        [Required]
-        [StringLength(255)]
+        [StringLength(225)]
+        [Display(Name = "name")]
         public string Name { get; set; }
-        [Required]
-        public int Age { get; set; }
-        [Required]
-        public DateTime DateOfBirth { get; set; }
-        [Required]
-        public string Address { get; set; }
-        [Required]
-        public string Education { get; set; }
-        [Required]
-        public string Specialty { get; set; }
 
+        [Range(0, int.MaxValue)]
+        public int Age { get; set; }
+
+        [Display(Name = "Date of Birth")]
+        public DateTime DateOfBirth { get; set; } = DateTime.Now;
+
+        [StringLength(255)]
+        public string Address { get; set; }
+
+        [StringLength(255)]
+        public string Education { get; set; }
+
+        [StringLength(255)]
+        public string Specialty { get; set; }
     }
 }

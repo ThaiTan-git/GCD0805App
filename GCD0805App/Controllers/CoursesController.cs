@@ -39,7 +39,7 @@ namespace GCD0805App.Controllers
 
             public ActionResult Create()
             {
-                var model = new ViewModels.CoursesViewModel()
+                var model = new GCD0805App.ViewModels.CoursesViewModel()
                 {
                     Categories = _context.Categories.ToList()
                 };
@@ -131,7 +131,7 @@ namespace GCD0805App.Controllers
 
                 foreach (var user in members)
                 {
-                    if (_userManager.GetRoles(User.Identity.GetUserId())[0].Equals("Trainer"))
+                    if (_userManager.GetRoles(user.Id)[0].Equals("Trainer"))
                     {
                         trainer.Add(user);
                     }
@@ -162,7 +162,7 @@ namespace GCD0805App.Controllers
                 foreach (var user in usersInDb)
                 {
                     if (!usersInTeam.Contains(user) &&
-                        _userManager.GetRoles(User.Identity.GetUserId())[0].Equals("Trainer"))
+                        _userManager.GetRoles(user.Id)[0].Equals("Trainer"))
                     {
                         usersToAdd.Add(user);
                     }
@@ -220,7 +220,7 @@ namespace GCD0805App.Controllers
 
                 foreach (var user in members)
                 {
-                    if (_userManager.GetRoles(User.Identity.GetUserId())[0].Equals("Trainee"))
+                    if (_userManager.GetRoles(user.Id)[0].Equals("Trainee"))
                     {
                         trainee.Add(user);
                     }
@@ -252,7 +252,7 @@ namespace GCD0805App.Controllers
                 foreach (var user in usersInDb)
                 {
                     if (!usersInTeam.Contains(user) &&
-                        _userManager.GetRoles(User.Identity.GetUserId())[0].Equals("Trainee"))
+                        _userManager.GetRoles(user.Id)[0].Equals("Trainee"))
                     {
                         usersToAdd.Add(user);
                     }
