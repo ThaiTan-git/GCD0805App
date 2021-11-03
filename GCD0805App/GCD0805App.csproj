@@ -257,13 +257,23 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Courses\Index.cshtml" />
     <Content Include="Views\Trainees\Index.cshtml" />
+    <Content Include="Views\Course\Index.cshtml" />
+    <Content Include="Views\Course\Details.cshtml" />
+    <Content Include="Views\Course\Create.cshtml" />
+    <Content Include="Views\Course\Edit.cshtml" />
+    <Content Include="Views\Course\AddTrainers.cshtml" />
+    <Content Include="Views\Course\AddTrainees.cshtml" />
+    <Content Include="Views\Course\GetTrainers.cshtml" />
+    <Content Include="Views\Course\GetTrainees.cshtml" />
+    <Content Include="Views\Course\MyCourse.cshtml" />
+    <Content Include="Views\Course\UserList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Categories\" />
+    <Folder Include="Views\Courses\" />
     <Folder Include="Views\Staffs\" />
     <Folder Include="Views\Trainers\" />
   </ItemGroup>

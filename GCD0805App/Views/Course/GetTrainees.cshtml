@@ -1,0 +1,49 @@
+﻿@model IEnumerable<GCD0805App.Models.IdentityModel>
+@using GCD0805App.Units
+@{
+    ViewBag.Title = "GetTrainees";
+}
+
+<h2>Trainees in Course</h2>
+
+<div class="row">
+    <ul class="list-group">
+        <li class="list-group-item active">
+            Trainers in Course
+            <span class="badge">@Model.Count()</span>
+        </li>
+        @foreach (var user in Model)
+        {
+            <li class="list-group-item">
+                @user.Email
+                <div>
+                    @if (User.IsInRole(Role.Staff))
+                    {
+                        <span>
+                            @Html.ActionLink("Remove", "DeleteTrainees", "Course", new { id = ViewBag.CourseId, userId = user.Id }, new { @class = "text-danger text-right" })
+                        </span>
+                    }
+                </div>
+            </li>
+        }
+    </ul>
+</div>
+@if (User.IsInRole(Role.Staff))
+{
+    <div class="form-group">
+        @Html.ActionLink("Back", "Index", "Course", new { @class = "btn btn-info" })
+    </div>
+}
+@if (User.IsInRole(Role.Trainee))
+{
+    <div class="form-group">
+        @Html.ActionLink("Back", "MyCourse", "Course", new { @class = "btn btn-info" })
+    </div>
+}
+@if (User.IsInRole(Role.Trainer))
+{
+    <div class="form-group">
+        @Html.ActionLink("Back", "MyCourse", "Course", new { @class = "btn btn-info" })
+    </div>
+}
+

@@ -1,0 +1,24 @@
+﻿@model List<GCD0805App.Models.TrainingCourse>
+@{
+    ViewBag.Title = "ListUser";
+}
+<h2>ListUser</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Course name</th>
+            <th scope="col">Full name</th>
+            <th scope="col">Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Course.Name</td>
+                <td>@user.User.Name</td>
+                <td>@user.User.Email</td>
+            </tr>
+        }
+    </tbody>
+</table>

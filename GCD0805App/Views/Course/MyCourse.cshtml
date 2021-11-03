@@ -1,0 +1,30 @@
+﻿@model IEnumerable<GCD0805App.Models.Course>
+@using GCD0805App.Units
+@{
+    ViewBag.Title = "MyCourse";
+}
+
+<h2>My Courses</h2>
+
+
+<div class="row">
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-info">My Courses</li>
+        @foreach (var course in Model)
+        {
+            <li class="list-group-item">
+                @course.Name
+                @if (User.IsInRole(Role.Staff))
+                {
+                    <div class="form-group">
+                        @Html.ActionLink("See Trainer in Course", "GetTrainers", "Course", new { id = course.Id }, new { @class = "btn btn-success" })
+                    </div>
+                }
+                <div class="form-group">
+                    @Html.ActionLink("See Trainee in Course", "GetTrainees", "Course", new { id = course.Id }, new { @class = "btn btn-success" })
+                </div>
+            </li>
+
+        }
+    </ul>
+</div>

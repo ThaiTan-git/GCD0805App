@@ -1,0 +1,21 @@
+﻿@model GCD0805App.ViewModels.SharedCoursesViewModel
+@{
+    ViewBag.Title = "AddTrainers";
+}
+
+<h2>Add a new Trainers</h2>
+
+
+@using (Html.BeginForm("AddTrainers", "Course", FormMethod.Post))
+{
+<div class="form-group">
+    <label>Trainer</label>
+    @Html.HiddenFor(m => m.CourseId)
+    @Html.DropDownListFor(m => m.UserId,
+        new SelectList(Model.Users, "Id", "Name"),
+        new { @class = "form-control" })
+</div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Add</button>
+    </div>
+}

@@ -7,6 +7,5 @@ namespace GCD0805App.ViewModels
     {
         public Course Courses { get; set; }
         public List<Category> Categories { get; set; }
-        public List<IdentityModel> Users { get; set; }
     }
 }

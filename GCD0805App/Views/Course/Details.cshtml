@@ -1,0 +1,31 @@
+﻿@model GCD0805App.Models.Course
+@using GCD0805App.Units
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+
+@if (User.IsInRole(Role.Staff))
+{
+    <div class="form-group">
+        @Html.ActionLink("Trainer in this Course", "GGetTrainers", "Course", new { id = Model.Id }, new { @class = "btn btn-info" })
+    </div>
+}
+<div class="form-group">
+    @Html.ActionLink("Trainee in this Course", "GetTrainees", "Course", new { id = Model.Id }, new { @class = "btn btn-info" })
+</div>
+
+<div class="panel panel-info">
+    <div class="panel-heading">Name: @Model.Name </div>
+    <div class="panel-body">
+        <p>Category: @Model.Category.Name</p>
+        <p>Description: @Model.Description</p>
+
+    </div>
+</div>
+<div class="form-group">
+    @Html.ActionLink("Back", "Index", "Course", new { @class = "btn btn-info" })
+</div>

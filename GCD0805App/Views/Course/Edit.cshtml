@@ -1,0 +1,34 @@
+﻿@model GCD0805App.ViewModels.CoursesViewModel
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit Course</h2>
+
+@using (Html.BeginForm("Edit", "Courses", FormMethod.Post))
+{
+    if (ViewBag.Error == "Name is already exist")
+    {
+        <h1 class="text-danger">@ViewBag.Error<br></h1>
+    }
+
+    @Html.HiddenFor(m => m.Courses.Id)
+    <div class="form-group">
+        <label>Name</label>
+        @Html.TextBoxFor(m => m.Courses.Name, "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Courses.Name, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <label>Description</label>
+        @Html.TextBoxFor(m => m.Courses.Description, "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Courses.Description, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <label>Category</label>
+        @Html.DropDownListFor(m => m.Courses.CategoryId,
+       new SelectList(Model.Categories, "Id", "name"),
+       new { @class = "form-control" }
+       )
+    </div>
+    <button type="submit" class="btn btn-primary">Edit</button>
+}

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -18,29 +18,39 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Management Courses", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Management Application", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+
                     @if (User.Identity.IsAuthenticated)
                     {
-                        if (User.IsInRole(Role.Trainee))
+                        if (User.IsInRole(Role.Admin))
                         {
-                            <li>@Html.ActionLink("My Courses", "Index", "Courses")</li>
-                        }
-                        else if (User.IsInRole(Role.Trainer))
-                        {
-                            <li>@Html.ActionLink("Manage Trainees", "Index", "Trainers")</li>
+
+                            <li>@Html.ActionLink("Account UserManagement", "Index", "Admin")</li>
+
                         }
                         else if (User.IsInRole(Role.Staff))
                         {
-                            <li>@Html.ActionLink("Manage Courses", "Index", "Staffs")</li>
+
+                            <li>@Html.ActionLink("Categories", "Index", "Category")</li>
+                            <li>@Html.ActionLink("Course", "Index", "Course")</li>
+                            <li>@Html.ActionLink("Trainee Infomation", "Index", "Staff")</li>
 
                         }
-                        else if (User.IsInRole(Role.Admin))
+                        else if (User.IsInRole(Role.Trainer))
                         {
-                            <li>@Html.ActionLink("Manage Courses", "Index", "Admin")</li>
+
+                            <li>@Html.ActionLink("My Profile", "Index", "Trainer")</li>
+                            <li>@Html.ActionLink("Courses", "MyCourse", "Course")</li>
+
+                        }
+                        else if (User.IsInRole(Role.Trainee))
+                        {
+
+                            <li>@Html.ActionLink("My Profile", "Index", "Trainee")</li>
+                            <li>@Html.ActionLink("Courses", "Courses", "Trainee")</li>
 
                         }
                     }
@@ -53,7 +63,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Courses Management App</p>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
 

@@ -120,13 +120,14 @@ namespace GCD0805App.Controllers
             }
 
             [HttpGet]
-            public ActionResult ShowTrainers(int? id)
+            public ActionResult GetTrainers(int? id)
             {
                 if (id == null)
                     return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
                 var members = _context.TrainingCourses
-                    .Where(t => t.CourseId == id)
-                    .Select(t => t.User);
+                .Where(t => t.CourseId == id)
+                .Select(t => t.User);
+
                 var trainer = new List<IdentityModel>();
 
                 foreach (var user in members)
@@ -153,9 +154,9 @@ namespace GCD0805App.Controllers
                 var usersInDb = _context.Users.ToList();
 
                 var usersInTeam = _context.TrainingCourses
-                    .Where(t => t.CourseId == id)
-                    .Select(t => t.User)
-                    .ToList();
+                .Where(t => t.CourseId == id)
+                .Select(t => t.User)
+                .ToList();
 
                 var usersToAdd = new List<IdentityModel>();
 
@@ -194,7 +195,7 @@ namespace GCD0805App.Controllers
 
             [HttpGet]
             [Authorize(Roles = "Staff")]
-            public ActionResult RemoveTrainers(int id, string userId)
+            public ActionResult DeleteTrainers(int id, string userId)
             {
                 var courseUserToRemove = _context.TrainingCourses
                     .SingleOrDefault(t => t.CourseId == id && t.UserId == userId);
@@ -208,15 +209,14 @@ namespace GCD0805App.Controllers
             }
 
             [HttpGet]
-            public ActionResult ShowTrainees(int? id)
+            public ActionResult GetTrainees(int? id)
             {
                 if (id == null)
                     return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
                 var members = _context.TrainingCourses
-                    //.Include(t => t.User)
-                    .Where(t => t.CourseId == id)
-                    .Select(t => t.User);
-                var trainee = new List<IdentityModel>();       // Init List Users to Add Course
+                .Where(t => t.CourseId == id)
+                .Select(t => t.User);
+                var trainee = new List<IdentityModel>();
 
                 foreach (var user in members)
                 {
@@ -243,9 +243,9 @@ namespace GCD0805App.Controllers
 
                 var usersInTeam = _context.TrainingCourses
 
-                    .Where(t => t.CourseId == id)
-                    .Select(t => t.User)
-                    .ToList();
+                .Where(t => t.CourseId == id)
+                .Select(t => t.User)
+                .ToList();
 
                 var usersToAdd = new List<IdentityModel>();
 
@@ -283,7 +283,7 @@ namespace GCD0805App.Controllers
             }
             [HttpGet]
             [Authorize(Roles = "Staff")]
-            public ActionResult RemoveTrainees(int id, string userId)
+            public ActionResult DeleteTrainees(int id, string userId)
             {
                 var courseUserToRemove = _context.TrainingCourses
                     .SingleOrDefault(t => t.CourseId == id && t.UserId == userId);
@@ -304,22 +304,22 @@ namespace GCD0805App.Controllers
                 var userId = User.Identity.GetUserId();
 
                 var courses = _context.TrainingCourses
-                    .Where(t => t.UserId.Equals(userId))
-                    .Select(t => t.Course)
-                    .ToList();
+                .Where(t => t.UserId.Equals(userId))
+                .Select(t => t.Course)
+                .ToList();
 
                 return View(courses);
             }
-            public ActionResult ListUser(string searchCourse, string role)
+            public ActionResult UserList(string courseName, string role)
             {
-                var getRole = _context.Roles.SingleOrDefault(r => r.Name == role);
-                var Course = _context.Courses.Where(m => m.Name.Contains(searchCourse));
-                var lstUser = _context.TrainingCourses
+                var roles = _context.Roles.SingleOrDefault(r => r.Name == role);
+                var Courses = _context.Courses.Where(c => c.Name.Contains(courseName));
+                var listUser = _context.TrainingCourses
                 .Include("User")
                 .Include("Course")
-                .Where(m => Course.Any(x => x.Id == m.Course.Id)).ToList();
-                var lstUserByRole = lstUser.Where(m => m.User.Roles.Any(x => x.RoleId == getRole.Id)).ToList();
-                return View(lstUserByRole);
+                .Where(c => Courses.Any(x => x.Id == c.Course.Id)).ToList();
+                var userByRole = listUser.Where(l => l.User.Roles.Any(x => x.RoleId == roles.Id)).ToList();
+                return View(userByRole);
             }
         }
     }
