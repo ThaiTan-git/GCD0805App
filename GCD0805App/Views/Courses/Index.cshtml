@@ -1,46 +1,57 @@
 ﻿@model IEnumerable<GCD0805App.Models.Course>
+
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>My Todoes</h2>
+
+<h2>Course List</h2>
+
+<p>
+    @Html.ActionLink("Create a new Course", "Create", null, new { @class = "btn btn-primary" })
+</p>
 
 <div class="form-group">
-    @Html.ActionLink("See Stats", "Stats", "Courses", null, new { @class = "btn btn-info" })
-    @Html.ActionLink("My Teams", "Belong", "Courses", null, new { @class = "btn btn-default" })
+    @using (Html.BeginForm("Index", "Course", FormMethod.Get))
+    {
+        <div class="form-group">
+            @Html.TextBox("searchString", null, new { @class = "form-control" })
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    }
 </div>
 
-@using (Html.BeginForm("Index", "Courses", FormMethod.Get))
-{
-    <div class="form-group">
-        @Html.TextBox("searchString", null, new { @class = "form-control" })
-    </div>
-    <button type="submit" class="btn btn-primary">Search</button>
-}
-
-
-<table class="table table-striped">
+<h3>Course</h3>
+<table class="table">
     <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">Description</th>
+            <th scope="col">No.</th>
+            <th scope="col">Course Name</th>
             <th scope="col">Category</th>
+            <th scope="col">Description</th>
             <th scope="col">Action</th>
-
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in @Model)
+        @{int i = 0;}
+        @foreach (var course in Model)
         {
             <tr>
-                <th scope="row">@item.Id</th>
-                <td>@item.Description</td>
-                <td>@item.Category.Description</td>
+                <th scope="row">@{i++;}@i</th>
+                <td>@course.Name</td>
+                <td>@course.Category.Name</td>
+                <td>@course.Description</td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", "Todos", new { id = item.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Details", "Details", "Course", new { id = course.Id }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Edit", "Edit", "Course", new { id = course.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Delete", "Delete", "Course", new { id = course.Id }, new { @class = "btn btn-danger" })
+
+                    @Html.ActionLink("Assign Trainer", "AddTrainers", "Course", new { id = course.Id }, new { @class = "btn btn-primary" })
+
+                    @Html.ActionLink("Asign Trainee", "AddTrainees", "Course", new { id = course.Id }, new { @class = "btn btn-primary" })
                 </td>
             </tr>
         }
-
     </tbody>
 </table>

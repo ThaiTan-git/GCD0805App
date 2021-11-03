@@ -1,17 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using GCD0805App.Models;
+using GCD0805App.Units;
+using Microsoft.AspNet.Identity;
+using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace GCD0805App.Controllers
 {
+    [Authorize(Roles = Role.Trainee)]
     public class TraineesController : Controller
     {
-        // GET: Trainees
+       
+        private ApplicationDbContext _context;
+        public TraineesController()
+        {
+            _context = new ApplicationDbContext();
+        }
         public ActionResult Index()
         {
-            return View();
+            var userId = User.Identity.GetUserId();
+            var trainee = _context.Users.SingleOrDefault(u => u.Id.Equals(userId));
+
+            if (trainee == null) return HttpNotFound();
+            return View(trainee);
         }
+
     }
 }

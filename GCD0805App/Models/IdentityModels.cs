@@ -1,8 +1,9 @@
-﻿using System.Data.Entity;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
+using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace GCD0805App.Models
 {
@@ -16,5 +17,24 @@ namespace GCD0805App.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        [Key]
+        public int Id { get; set; }
+        [Required]
+        public string Email { get; set; }
+        [Required]
+        [StringLength(255)]
+        public string Name { get; set; }
+        [Required]
+        public int Age { get; set; }
+        [Required]
+        public DateTime DateOfBirth { get; set; }
+        [Required]
+        public string Address { get; set; }
+        [Required]
+        public string Education { get; set; }
+        [Required]
+        public string Specialty { get; set; }
+
     }
 }

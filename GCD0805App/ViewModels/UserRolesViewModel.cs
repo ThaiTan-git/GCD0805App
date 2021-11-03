@@ -6,7 +6,7 @@ namespace GCD0805App.ViewModels
 {
     public class UserRolesViewModel
     {
-        public User User { get; set; }
-        public List<Role> Roles { get; set; }
+        public ApplicationUser Users { get; set; }
+        public List<string> Roles { get; set; }
     }
 }

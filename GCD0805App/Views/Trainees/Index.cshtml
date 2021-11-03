@@ -1,0 +1,19 @@
+﻿@model GCD0805App.Models.ApplicationUser
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>My Information</h2>
+
+<div class="form-group">
+    @Html.ActionLink("My Courses", "index", "Courses", null, new { @class = "btn btn-info" })
+</div>
+
+<div class="panel panel-info">
+    <div class="panel-body">
+        <p>Name: @Model.Name</p>
+        <p>Age: @Model.Age</p>
+        <p>Date of Birth: @Model.DateOfBirth</p>
+        <p>Education: @Model.Education</p>
+    </div>
+</div>

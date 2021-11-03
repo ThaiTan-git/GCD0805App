@@ -2,9 +2,9 @@
 
 namespace GCD0805App.ViewModels
 {
-    public class UsersViewModel
+    public class UsersCourseViewModel
     {
-        public User Users { get; set; }
+        public ApplicationUser Users { get; set; }
         public Course Courses { get; set; }
 
     }
