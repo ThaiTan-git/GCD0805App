@@ -3,12 +3,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GCD0805App.Models
 {
-    public class TrainerCourse
+    public class TrainingCourse
     {
         [Key, Column(Order = 1)]
-        [ForeignKey("Trainer")]
-        public int TrainerId { get; set; }
-        public Trainer Trainer { get; set; }
+        [ForeignKey("User")]
+        public string UserId { get; set; }
+        public ApplicationUser User { get; set; }
 
         [Key, Column(Order = 2)]
         [ForeignKey("Course")]
