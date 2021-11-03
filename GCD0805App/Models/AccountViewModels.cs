@@ -92,6 +92,13 @@ namespace GCD0805App.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+        [Required]
+        public string Role { get; set; }
+        public List<string> Roles { get; set; }
+        [Required]
+        [StringLength(100)]
+        [Display(Name = "Address")]
+        public string Address { get; set; }
     }
 
     public class ResetPasswordViewModel

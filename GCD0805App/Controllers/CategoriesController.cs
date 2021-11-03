@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using GCD0805App.Models;
+using System;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace GCD0805App.Controllers
@@ -21,7 +20,7 @@ namespace GCD0805App.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 searchString = searchString.ToLower();
-                categories = categories.Where(c => c.CategoryName.ToLower().Contains(searchString)).ToList();
+                categories = categories.Where(c => c.Name.ToLower().Contains(searchString)).ToList();
             }
 
             return View(categories);
@@ -35,7 +34,7 @@ namespace GCD0805App.Controllers
         [HttpPost]
         public ActionResult Create(Category category)
         {
-            var Category = _context.Categories.SingleOrDefault(t => t.CategoryName == category.CategoryName);
+            var Category = _context.Categories.SingleOrDefault(t => t.Name == category.Name);
             if (Category != null)
             {
                 ViewBag.Error = "Name is already exist";
@@ -44,7 +43,7 @@ namespace GCD0805App.Controllers
 
             var newCategory = new Category()
             {
-                CategoryName = category.CategoryName,
+                Name = category.Name,
                 Description = category.Description
             };
 
@@ -64,14 +63,14 @@ namespace GCD0805App.Controllers
         {
             if (ModelState.IsValid)
             {
-                var Edit = _context.Categories.SingleOrDefault(t => t.CategoryName == newCategory.CategoryName);
+                var Edit = _context.Categories.SingleOrDefault(t => t.Name == newCategory.Name);
                 if (Edit != null)
                 {
                     ViewBag.Error = "Name is already exist";
                     return View(newCategory);
                 }
                 var oldCategory = _context.Categories.SingleOrDefault(c => c.Id == newCategory.Id);
-                oldCategory.CategoryName = newCategory.CategoryName;
+                oldCategory.Name = newCategory.Name;
                 oldCategory.Description = newCategory.Description;
                 _context.SaveChanges();
             }
@@ -87,3 +86,4 @@ namespace GCD0805App.Controllers
             return RedirectToAction("Index");
         }
     }
+}

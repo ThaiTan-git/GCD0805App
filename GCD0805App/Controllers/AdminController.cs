@@ -1,4 +1,8 @@
-﻿using System;
+﻿using GCD0805App.Models;
+using GCD0805App.Units;
+using GCD0805App.ViewModels;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,13 +13,12 @@ namespace GCD0805App.Controllers
     public class AdminController : Controller
     {
         [Authorize(Roles = Role.Admin)]
-        // GET: Admin/Account
         public ActionResult Index()
         {
             var trainerRole = _context.Roles.SingleOrDefault(r => r.Name == Role.Trainer);
             var staffRole = _context.Roles.SingleOrDefault(r => r.Name == Role.Staff);
 
-            var model = new UsersGroupViewModel()
+            var model = new GroupsViewModel()
             {
                 Trainers = _context.Users
                     .Where(u => u.Roles.Any(r => r.RoleId == trainerRole.Id))
@@ -63,7 +66,7 @@ namespace GCD0805App.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            var model = new ViewModels.AccountViewModel()
+            var model = new RegisterViewModel
             {
                 Roles = new List<string>() { Role.Trainer, Role.Staff }
             };
@@ -71,7 +74,7 @@ namespace GCD0805App.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(AccountViewModel model)
+        public ActionResult Create(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -79,78 +82,59 @@ namespace GCD0805App.Controllers
                 {
                     UserName = model.Email,
                     Email = model.Email,
-                    FullName = model.FullName,
+                    Name = model.Name,
                     Age = model.Age,
                     Address = model.Address
                 };
 
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await UserManager.AddToRoleAsync(user.Id, model.Role);
-                    return RedirectToAction(nameof(Index));
-                }
-                AddErrors(result);
+                return RedirectToAction(nameof(Index));
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
         [HttpGet]
-        public async Task<ActionResult> Edit(string id)
+        public ActionResult Edit(string id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var user = await UserManager.FindByIdAsync(id);
+            var userId = User.Identity.GetUserId();
+            var user = _context.Users.SingleOrDefault(t => t.Id.Equals(userId));
 
             if (user == null)
             {
                 return HttpNotFound();
             }
-            var model = new InfoViewModel()
+            var model = new UserRolesViewModel()
             {
-                User = user,
-                Roles = new List<string>(await UserManager.GetRolesAsync(id))
+                Users = user,
+                Roles = new List<string>(_userManager.GetRoles(User.Identity.GetUserId()))
             };
             return View(model);
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult Edit(InfoViewModel model)
+        public ActionResult Edit(UserRolesViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = model.User;
-                var userinDb = UserManager.FindById(user.Id);
+                var user = model.Users;
+                var userId = User.Identity.GetUserId();
+                var userInDb = _context.Users.SingleOrDefault(t => t.Id.Equals(userId));
 
-                if (userinDb == null)
+                if (userInDb == null)
                     return HttpNotFound();
-                userinDb.FullName = user.FullName;
-                userinDb.Age = user.Age;
-                userinDb.DateofBirth = user.DateofBirth;
-                userinDb.Email = user.Email;
-                userinDb.UserName = user.Email;
+                userInDb.Name = user.Name;
+                userInDb.Age = user.Age;
+                userInDb.DateOfBirth = user.DateOfBirth;
+                userInDb.Email = user.Email;
+                userInDb.UserName = user.Email;
 
 
-                IdentityResult result = UserManager.Update(userinDb);
+                IdentityResult result = UserManager.Update(userInDb);
 
-                // if (model.Specialty != null)
-                // {
-                //    var profile = await _context.TrainerProfiles.SingleOrDefaultAsync(p => p.UserId == userinDb.Id);
-                //    profile.Specialty = model.Specialty;
-                // }
                 _context.SaveChanges();
-
-                if (result.Succeeded)
-                    return RedirectToAction(nameof(Index));
-                else
-                    AddErrors(result);
+                return RedirectToAction(nameof(Index));
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
@@ -185,15 +169,15 @@ namespace GCD0805App.Controllers
                 return View(model);
             }
 
-            var roles = UserManager.GetRoles(user.Id);
+            var roles = UserManager.GetRoles(User.Identity.GetUserId());
             if (!roles.All(r => r == Role.Staff || r == Role.Trainer))
             {
                 ViewBag.ErrorMessage = "The user cannot be reset. Permission is denied.";
                 return View(model);
             }
 
-            model.Code = UserManager.GeneratePasswordResetToken(user.Id);
-            IdentityResult result = UserManager.ResetPassword(user.Id, model.Code, model.Password);
+            model.Code = UserManager.GeneratePasswordResetToken(User.Identity.GetUserId());
+            IdentityResult result = UserManager.ResetPassword(User.Identity.GetUserId(), model.Code, model.Password);
 
             if (result.Succeeded)
             {
@@ -212,3 +196,4 @@ namespace GCD0805App.Controllers
             }
         }
     }
+}
